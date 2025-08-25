@@ -3,31 +3,21 @@ import globals from "globals";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
-import { globalIgnores } from "eslint/config";
-import eslintConfigPrettier from "eslint-config-prettier/flat";
 import importPlugin from "eslint-plugin-import";
+import prettier from "eslint-config-prettier";
+import { globalIgnores } from "eslint/config";
 
 export default tseslint.config([
   globalIgnores(["dist"]),
   {
     files: ["**/*.{ts,tsx}"],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs["recommended-latest"],
-      reactRefresh.configs.vite,
-    ],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
     },
-  },
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      importPlugin.flatConfigs.recommended,
-      importPlugin.flatConfigs.typescript,
-    ],
+    plugins: {
+      import: importPlugin,
+    },
     settings: {
       "import/resolver": {
         typescript: {
@@ -58,7 +48,9 @@ export default tseslint.config([
             "sibling",
             "type",
           ],
-          pathGroups: [{ pattern: "@/**", group: "internal" }],
+          pathGroups: [
+            { pattern: "@/**", group: "internal", position: "after" },
+          ],
           pathGroupsExcludedImportTypes: ["type"],
           alphabetize: {
             order: "asc",
@@ -68,6 +60,14 @@ export default tseslint.config([
         },
       ],
     },
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs["recommended-latest"],
+      reactRefresh.configs.vite,
+      ...importPlugin.flatConfigs.recommended,
+      ...importPlugin.flatConfigs.typescript,
+      ...prettier,
+    ],
   },
-  eslintConfigPrettier,
 ]);
