@@ -1,7 +1,10 @@
+import useGoogleSignin from "@/hooks/useGoogleSignin";
+
 export default function SigninPage() {
+  const { signin } = useGoogleSignin();
   return (
     <div>
-      <h1>Signin Page</h1>
+      <button onClick={signin}>Sign in with Google</button>
     </div>
   );
 }
