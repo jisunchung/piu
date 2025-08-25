@@ -1,8 +1,17 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "@pages/Home";
+import MyPage from "@pages/My";
+import SigninPage from "@pages/Signin";
+
 function App() {
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-100">
-      hello my name is piu
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/my" element={<MyPage />} />
+        <Route path="/signin" element={<SigninPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
