@@ -15,9 +15,6 @@ export default tseslint.config([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
-    plugins: {
-      import: importPlugin,
-    },
     settings: {
       "import/resolver": {
         typescript: {
@@ -65,9 +62,9 @@ export default tseslint.config([
       tseslint.configs.recommended,
       reactHooks.configs["recommended-latest"],
       reactRefresh.configs.vite,
-      ...importPlugin.flatConfigs.recommended,
-      ...importPlugin.flatConfigs.typescript,
-      ...prettier,
+      importPlugin.flatConfigs.recommended,
+      importPlugin.flatConfigs.typescript,
+      prettier,
     ],
   },
 ]);
