@@ -1,5 +1,6 @@
-import type { User } from "@models/user";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+
+import type { User } from "@models/user";
 
 type initialStateType = User | null;
 

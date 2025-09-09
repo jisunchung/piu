@@ -5,12 +5,19 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 import importPlugin from "eslint-plugin-import";
 import prettier from "eslint-config-prettier";
-import { globalIgnores } from "eslint/config";
+import { defineConfig, globalIgnores } from "eslint/config";
 
-export default tseslint.config([
-  globalIgnores(["dist"]),
+export default defineConfig([
+  globalIgnores(["**/dist/**", "**/node_modules/**"]),
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
+    plugins: {
+      import: importPlugin,
+      "react-hooks": reactHooks,
+      "react-refresh": reactRefresh,
+    },
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -31,6 +38,8 @@ export default tseslint.config([
       },
     },
     rules: {
+      ...reactHooks.configs.recommended.rules,
+      "react-refresh/only-export-components": "warn",
       "no-unused-vars": "warn",
       "import/no-dynamic-require": "warn",
       "import/no-nodejs-modules": "warn",
@@ -57,14 +66,6 @@ export default tseslint.config([
         },
       ],
     },
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs["recommended-latest"],
-      reactRefresh.configs.vite,
-      importPlugin.flatConfigs.recommended,
-      importPlugin.flatConfigs.typescript,
-      prettier,
-    ],
   },
+  prettier,
 ]);
