@@ -11,11 +11,13 @@ interface SnapScrollAreaProps {
 export function SnapScrollArea({ sections }: SnapScrollAreaProps) {
   return (
     <div className="h-screen snap-y snap-mandatory overflow-scroll">
-      {sections.map((section) => (
-        <div key={section.id} className="h-screen snap-start">
-          {section.component}
-        </div>
-      ))}
+      {sections.map((section) =>
+        section.visible !== true ? (
+          <div className="h-screen snap-start" key={section.id}>
+            {section.component}
+          </div>
+        ) : null,
+      )}
     </div>
   );
 }
