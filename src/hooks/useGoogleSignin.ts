@@ -9,7 +9,7 @@ function useGoogleSignin() {
     const { error } = await supabase.auth.signOut();
     console.log("Sign out error:", error);
     navigate("/");
-  }, []);
+  }, [navigate]);
 
   const signin = useCallback(async () => {
     const { error } = await supabase.auth.signInWithOAuth({
