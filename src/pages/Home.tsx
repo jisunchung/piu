@@ -1,10 +1,25 @@
-import supabase from "@remote/supabase";
+import DescribeSection from "@components/home/DescriptionSection";
+import StartSection from "@components/home/StartSection";
+import { SnapScrollArea } from "@components/shared/SnapScrollArea";
 
 export default function HomePage() {
-  console.log(supabase);
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-100">
-      hello my name is piu
-    </div>
+    <SnapScrollArea
+      sections={[
+        { id: "start", component: <StartSection /> },
+        {
+          id: "describeBeginner",
+          component: <DescribeSection level="Beginner" />,
+        },
+        {
+          id: "describeIntermediate",
+          component: <DescribeSection level="Intermediate" />,
+        },
+        {
+          id: "describeAdvanced",
+          component: <DescribeSection level="Advanced" />,
+        },
+      ]}
+    ></SnapScrollArea>
   );
 }
