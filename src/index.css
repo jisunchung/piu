@@ -4,6 +4,10 @@
 
 @theme {
   --font-pretendard: "Pretendard Variable", sans-serif;
+
+  --color-primary: var(--color-blue-300);
+  --color-secondary: var(--color-amber-200);
+  --color-neutral: var(--color-gray-500);
 }
 
 * {
