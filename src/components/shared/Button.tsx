@@ -11,8 +11,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const colorMap = {
-  primary: "bg-stone-50 text-blue-300 hover:bg-blue-300 hover:text-white",
-  secondary: "bg-gray-200 text-gray-800 hover:bg-gray-600 hover:text-white",
+  primary:
+    "bg-stone-50 text-(--color-primary) hover:bg-(--color-primary) hover:text-white",
+  secondary:
+    "bg-gray-200 text-(--color-neutral) hover:bg-(--color-neutral) hover:text-white",
 };
 
 const sizeMap = {

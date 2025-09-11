@@ -8,6 +8,7 @@
   --color-primary: var(--color-blue-300);
   --color-secondary: var(--color-amber-200);
   --color-neutral: var(--color-gray-500);
+  --color-neutral-light: var(--color-gray-300);
 }
 
 * {

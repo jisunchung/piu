@@ -8,7 +8,7 @@ export default function StartSection() {
         texts={["Hello", "My name is", "piu"]}
         morphTime={1.5}
         cooldownTime={0.5}
-        textClassName="font-bold whitespace-nowrap text-blue-300"
+        textClassName="font-bold whitespace-nowrap text-(--color-primary) text-7xl"
       />
     </Flex>
   );
