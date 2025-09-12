@@ -1,23 +1,22 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 
-import useScrollProgress from "@hooks/ui/useScrollProgress";
 import { useScrollUpdater } from "@hooks/ui/useScrollUpdater";
-
-import ProgressBar from "./ProgressBar";
 
 interface Section {
   id: string;
   component: React.ReactNode;
   visible?: boolean;
+  children?: React.ReactNode;
 }
 
 interface SnapScrollAreaProps {
   sections: Section[];
+  children: React.ReactNode;
 }
 
-export function SnapScrollArea({ sections }: SnapScrollAreaProps) {
+export function SnapScrollArea({ sections, children }: SnapScrollAreaProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { progress: scrollProgress } = useScrollProgress();
+
   useScrollUpdater(scrollRef);
 
   return (
@@ -32,7 +31,7 @@ export function SnapScrollArea({ sections }: SnapScrollAreaProps) {
           </div>
         ) : null,
       )}
-      <ProgressBar progress={scrollProgress}></ProgressBar>
+      {children}
     </div>
   );
 }

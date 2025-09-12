@@ -1,8 +1,11 @@
 import DescribeSection from "@components/home/DescriptionSection";
 import StartSection from "@components/home/StartSection";
+import ProgressBar from "@components/shared/ProgressBar";
 import { SnapScrollArea } from "@components/shared/SnapScrollArea";
+import useScrollProgress from "@hooks/ui/useScrollProgress";
 
 export default function HomePage() {
+  const { progress: scrollProgress } = useScrollProgress();
   return (
     <SnapScrollArea
       sections={[
@@ -20,6 +23,8 @@ export default function HomePage() {
           component: <DescribeSection level="Advanced" />,
         },
       ]}
-    ></SnapScrollArea>
+    >
+      <ProgressBar progress={scrollProgress}></ProgressBar>
+    </SnapScrollArea>
   );
 }
