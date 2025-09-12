@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 import useScrollProgress from "@hooks/ui/useScrollProgress";
+import { useScrollUpdater } from "@hooks/ui/useScrollUpdater";
 
 import ProgressBar from "./ProgressBar";
 
@@ -16,31 +17,9 @@ interface SnapScrollAreaProps {
 
 export function SnapScrollArea({ sections }: SnapScrollAreaProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const { updateScrollProgress } = useScrollProgress();
+  const { progress: scrollProgress } = useScrollProgress();
+  useScrollUpdater(scrollRef);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollEl = scrollRef.current;
-      if (!scrollEl) return;
-      const scrollTop = scrollEl.scrollTop;
-      const scrollHeight = scrollEl.scrollHeight - scrollEl.clientHeight;
-      const ratio = 100; // 100% 스크롤을 기준
-      const progress = (scrollTop / scrollHeight) * ratio || 0;
-      setScrollProgress(progress);
-      updateScrollProgress(progress);
-    };
-
-    const scrollEl = scrollRef.current;
-    if (scrollEl) {
-      scrollEl.addEventListener("scroll", handleScroll);
-      // 초기값 설정
-      handleScroll();
-    }
-    return () => {
-      if (scrollEl) scrollEl.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
   return (
     <div
       ref={scrollRef}
