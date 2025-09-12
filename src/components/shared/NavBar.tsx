@@ -1,7 +1,7 @@
 import { LEVEL_PATHS, LEVELS, type LevelType } from "@constants";
 import { motion, useTransform, useMotionValue } from "framer-motion";
 import { useCallback, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import useUser from "@hooks/auth/useUser";
 import useScrollProgress from "@hooks/ui/useScrollProgress";
@@ -67,9 +67,9 @@ export default function NavBar() {
       style={{ margin, borderRadius }}
     >
       <Flex align="center" className="h-20 px-10">
-        <a href="/" className="text-white">
+        <Link to="/" className="text-white">
           Logo
-        </a>
+        </Link>
 
         <Flex className="absolute left-1/2 hidden -translate-x-1/2 space-x-4 sm:flex">
           {LEVELS.map((level) => (
