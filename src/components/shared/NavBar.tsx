@@ -1,8 +1,10 @@
 import { LEVEL_PATHS, LEVELS, type LevelType } from "@constants";
-import { useCallback } from "react";
+import { motion, useTransform, useMotionValue } from "framer-motion";
+import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import useUser from "@hooks/auth/useUser";
+import useScrollProgress from "@hooks/ui/useScrollProgress";
 import useGoogleSignin from "@hooks/useGoogleSignin";
 
 import Avatar from "./Avatar";
@@ -13,6 +15,20 @@ export default function NavBar() {
   const { user } = useUser();
   const navigate = useNavigate();
   const { signin } = useGoogleSignin();
+  const { progress } = useScrollProgress();
+
+  const progressMotionValue = useMotionValue(progress);
+
+  useEffect(() => {
+    progressMotionValue.set(progress);
+  }, [progress, progressMotionValue]);
+
+  const margin = useTransform(progressMotionValue, [0, 30], ["0rem", "2rem"]);
+  const borderRadius = useTransform(
+    progressMotionValue,
+    [0, 30],
+    ["0px", "9999px"],
+  );
 
   const renderButton = useCallback(() => {
     if (user != null) {
@@ -46,29 +62,31 @@ export default function NavBar() {
   };
 
   return (
-    <Flex
-      align="center"
-      className="fixed top-0 right-0 left-0 z-1 h-20 bg-(--color-primary) px-10 shadow-md"
+    <motion.div
+      className="bg-primary fixed top-0 right-0 left-0 z-10 overflow-hidden shadow-md"
+      style={{ margin, borderRadius }}
     >
-      <a href="/" className="text-white">
-        Logo
-      </a>
+      <Flex align="center" className="h-20 px-10">
+        <a href="/" className="text-white">
+          Logo
+        </a>
 
-      <Flex className="absolute left-1/2 hidden -translate-x-1/2 space-x-4 sm:flex">
-        {LEVELS.map((level) => (
-          <div
-            className="cursor-pointer text-white hover:underline"
-            key={level}
-            onClick={() => {
-              handleNavLinkClick(level);
-            }}
-          >
-            {level}
-          </div>
-        ))}
+        <Flex className="absolute left-1/2 hidden -translate-x-1/2 space-x-4 sm:flex">
+          {LEVELS.map((level) => (
+            <div
+              className="cursor-pointer text-white hover:underline"
+              key={level}
+              onClick={() => {
+                handleNavLinkClick(level);
+              }}
+            >
+              {level}
+            </div>
+          ))}
+        </Flex>
+
+        {renderButton()}
       </Flex>
-
-      {renderButton()}
-    </Flex>
+    </motion.div>
   );
 }

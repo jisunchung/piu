@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "@store/user/hooks";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { clearUser, setUser } from "@store/user/userSlice";
 
 import type { User } from "@models/user";
