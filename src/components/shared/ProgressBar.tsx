@@ -8,8 +8,8 @@ interface ProgressBarProps {
 
 export default function ProgressBar({
   progress,
-  trackColor = "bg-(--color-neutral-light)",
-  barColor = "bg-(--color-primary) ",
+  trackColor = "bg-neutral-light",
+  barColor = "bg-primary",
 }: ProgressBarProps) {
   return (
     <Flex

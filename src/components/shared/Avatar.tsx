@@ -5,9 +5,9 @@ export default function Avatar({ username }: { username: string }) {
     <Flex
       justify="center"
       align="center"
-      className="h-10 w-10 overflow-hidden rounded-full bg-(--color-secondary) shadow-md hover:cursor-pointer hover:opacity-80"
+      className="bg-secondary h-10 w-10 overflow-hidden rounded-full shadow-md hover:cursor-pointer hover:opacity-80"
     >
-      <p className="font-extrabold text-(--color-neutral)">{username[0]}</p>
+      <p className="text-neutral font-extrabold">{username[0]}</p>
     </Flex>
   );
 }
