@@ -18,6 +18,7 @@ export default function DescriptionSection({ level }: { level: string }) {
   return (
     <section
       ref={sectionRef}
+      id={level}
       className="relative flex h-full w-full items-center justify-center"
     >
       {/* card */}
