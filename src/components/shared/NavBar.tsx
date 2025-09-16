@@ -80,7 +80,11 @@ export default function NavBar() {
   return (
     <motion.div
       className="bg-primary fixed top-0 right-0 left-0 z-10 overflow-hidden shadow-md"
-      style={{ margin, borderRadius }}
+      style={
+        pathname === "/"
+          ? { margin, borderRadius }
+          : { margin: 0, borderRadius: 0 }
+      }
     >
       <Flex align="center" className="h-20 px-10">
         <div onClick={handleLogoClick} className="text-white">
@@ -90,7 +94,11 @@ export default function NavBar() {
         <Flex className="absolute left-1/2 hidden -translate-x-1/2 space-x-4 sm:flex">
           {LEVELS.map((level) => (
             <div
-              className="cursor-pointer text-white hover:underline"
+              className={`cursor-pointer hover:underline ${
+                LEVEL_PATHS[level] === pathname
+                  ? "text-secondary font-extrabold underline"
+                  : "text-white"
+              }`}
               key={level}
               onClick={() => {
                 handleNavLinkClick(level);
