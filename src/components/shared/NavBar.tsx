@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import useUser from "@hooks/auth/useUser";
 import useScrollProgress from "@hooks/ui/useScrollProgress";
-import useScrollToTop from "@hooks/ui/useScrollToTop";
+import useScrollToTop from "@hooks/ui/useScrollToTopRequest";
 import useGoogleSignin from "@hooks/useGoogleSignin";
 
 import Avatar from "./Avatar";
@@ -16,7 +16,7 @@ export default function NavBar() {
   const { user } = useUser();
   const navigate = useNavigate();
   const { signin } = useGoogleSignin();
-  const { progress, updateScrollProgress } = useScrollProgress();
+  const { progress } = useScrollProgress();
   const { requestScrollToTop } = useScrollToTop();
 
   const progressMotionValue = useMotionValue(progress);
@@ -58,9 +58,9 @@ export default function NavBar() {
 
   const handleNavLinkClick = (level: LevelType) => {
     if (user) {
-      if (pathname !== LEVEL_PATHS[level]) {
-        navigate(LEVEL_PATHS[level]);
-        updateScrollProgress(0);
+      const targetPath = LEVEL_PATHS[level];
+      if (pathname !== targetPath) {
+        navigate(targetPath);
       } else {
         requestScrollToTop();
       }
@@ -70,11 +70,10 @@ export default function NavBar() {
   };
 
   const handleLogoClick = () => {
-    requestScrollToTop();
-
     if (pathname !== "/") {
       navigate("/");
-      updateScrollProgress(0);
+    } else {
+      requestScrollToTop();
     }
   };
 

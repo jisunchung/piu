@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { requestScrollToTop } from "@store/ui/uiSlice";
 
-function useScrollToTop() {
+function useScrollToTopRequest() {
   const dispatch = useAppDispatch();
   const scrollToTopRequest = useAppSelector(
     (state) => state.ui.scrollToTopRequest,
@@ -12,4 +12,4 @@ function useScrollToTop() {
   return { scrollToTopRequest, requestScrollToTop: ScrollToTop };
 }
 
-export default useScrollToTop;
+export default useScrollToTopRequest;

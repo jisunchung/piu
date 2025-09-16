@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import AuthGuard from "@components/auth/AuthGuard";
 import NavBar from "@components/shared/NavBar";
+import ScrollToTop from "@components/shared/ScrollToTop";
 import AdvancedPage from "@pages/Advanced";
 import BeginnerPage from "@pages/Beginner";
 import HomePage from "@pages/Home";
@@ -12,6 +13,7 @@ function App() {
   return (
     <BrowserRouter>
       <AuthGuard>
+        <ScrollToTop />
         <NavBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
