@@ -1,7 +1,8 @@
 import { ScrollContext } from "@contexts/ScrollContext";
 import clsx from "clsx";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
+import useScrollToTop from "@hooks/ui/useScrollToTop";
 import { useScrollUpdater } from "@hooks/ui/useScrollUpdater";
 
 interface Section {
@@ -24,6 +25,13 @@ export function SnapScrollArea({
 }: SnapScrollAreaProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   useScrollUpdater(scrollRef);
+  const { scrollToTopRequest } = useScrollToTop();
+
+  useEffect(() => {
+    if (scrollToTopRequest > 0 && scrollRef.current) {
+      scrollRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [scrollToTopRequest]);
 
   return (
     <ScrollContext.Provider value={{ scrollRef }}>

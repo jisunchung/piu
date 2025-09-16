@@ -1,10 +1,11 @@
 import { LEVEL_PATHS, LEVELS, type LevelType } from "@constants";
 import { motion, useTransform, useMotionValue } from "framer-motion";
 import { useCallback, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import useUser from "@hooks/auth/useUser";
 import useScrollProgress from "@hooks/ui/useScrollProgress";
+import useScrollToTop from "@hooks/ui/useScrollToTop";
 import useGoogleSignin from "@hooks/useGoogleSignin";
 
 import Avatar from "./Avatar";
@@ -15,9 +16,11 @@ export default function NavBar() {
   const { user } = useUser();
   const navigate = useNavigate();
   const { signin } = useGoogleSignin();
-  const { progress } = useScrollProgress();
+  const { progress, updateScrollProgress } = useScrollProgress();
+  const { requestScrollToTop } = useScrollToTop();
 
   const progressMotionValue = useMotionValue(progress);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     progressMotionValue.set(progress);
@@ -55,9 +58,23 @@ export default function NavBar() {
 
   const handleNavLinkClick = (level: LevelType) => {
     if (user) {
-      navigate(LEVEL_PATHS[level]);
+      if (pathname !== LEVEL_PATHS[level]) {
+        navigate(LEVEL_PATHS[level]);
+        updateScrollProgress(0);
+      } else {
+        requestScrollToTop();
+      }
     } else {
       handleScroll(level);
+    }
+  };
+
+  const handleLogoClick = () => {
+    requestScrollToTop();
+
+    if (pathname !== "/") {
+      navigate("/");
+      updateScrollProgress(0);
     }
   };
 
@@ -67,9 +84,9 @@ export default function NavBar() {
       style={{ margin, borderRadius }}
     >
       <Flex align="center" className="h-20 px-10">
-        <Link to="/" className="text-white">
+        <div onClick={handleLogoClick} className="text-white">
           Logo
-        </Link>
+        </div>
 
         <Flex className="absolute left-1/2 hidden -translate-x-1/2 space-x-4 sm:flex">
           {LEVELS.map((level) => (
