@@ -31,7 +31,7 @@ export function SnapScrollArea({
         ref={scrollRef}
         className={clsx(
           snap && "snap-y snap-mandatory",
-          "h-screen w-full overflow-y-scroll scroll-smooth",
+          "relative h-screen w-full overflow-y-scroll scroll-smooth",
         )}
       >
         {sections.map((section) =>
