@@ -23,6 +23,7 @@ export default function HomePage() {
           component: <DescribeSection level="Advanced" />,
         },
       ]}
+      snap={false}
     >
       <ProgressBar progress={scrollProgress}></ProgressBar>
     </SnapScrollArea>

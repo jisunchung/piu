@@ -1,4 +1,5 @@
 import { ScrollContext } from "@contexts/ScrollContext";
+import clsx from "clsx";
 import React, { useRef } from "react";
 
 import { useScrollUpdater } from "@hooks/ui/useScrollUpdater";
@@ -13,9 +14,14 @@ interface Section {
 interface SnapScrollAreaProps {
   sections: Section[];
   children: React.ReactNode;
+  snap?: boolean;
 }
 
-export function SnapScrollArea({ sections, children }: SnapScrollAreaProps) {
+export function SnapScrollArea({
+  sections,
+  children,
+  snap = true,
+}: SnapScrollAreaProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   useScrollUpdater(scrollRef);
 
@@ -23,7 +29,10 @@ export function SnapScrollArea({ sections, children }: SnapScrollAreaProps) {
     <ScrollContext.Provider value={{ scrollRef }}>
       <div
         ref={scrollRef}
-        className="relative h-screen snap-y snap-mandatory overflow-scroll"
+        className={clsx(
+          snap && "snap-y snap-mandatory",
+          "h-screen w-full overflow-y-scroll scroll-smooth",
+        )}
       >
         {sections.map((section) =>
           section.visible !== false ? (
